@@ -1,0 +1,34 @@
+jobs:
+
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Confirmar execução
+        run: echo "GitHub Actions funcionando"
+
+  branch-flow:
+    if: github.event_name == 'pull_request'
+    name: Validate branch flow
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Validate promotion path
+        shell: bash
+        run: |
+          case "${{ github.base_ref }}:${{ github.head_ref }}" in
+          DEV:feature/*) exit 0 ;;
+          DEV:fix/*) exit 0 ;;
+          DEV:hotfix/*) exit 0 ;;
+          DEV:refactor/*) exit 0 ;;
+          DEV:test/*) exit 0 ;;
+          DEV:ci/*) exit 0 ;;
+          DEV:docs/*) exit 0 ;;
+          DEV:chore/*) exit 0 ;;
+          HOM:DEV) exit 0 ;;
+          main:HOM) exit 0 ;;
+          *)
+            echo "Invalid promotion path: ${{ github.head_ref }} -> ${{ github.base_ref }}"
+            exit 1
+            ;;
+        esac
