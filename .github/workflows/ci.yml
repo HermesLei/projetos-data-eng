@@ -69,3 +69,17 @@ jobs:
               exit 1
               ;;
           esac
+  sonarqube:
+    name: SonarQube Cloud
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar o código
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Analisar com SonarQube Cloud
+        uses: SonarSource/sonarqube-scan-action@v6
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
