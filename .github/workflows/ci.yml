@@ -63,7 +63,7 @@ jobs:
             DEV:docs/*) exit 0 ;;
             DEV:chore/*) exit 0 ;;
             HOM:DEV) exit 0 ;;
-            PROD:HOM) exit 0 ;;
+            main:HOM) exit 0 ;;
             *)
               echo "Invalid promotion path: ${HEAD_REF} -> ${BASE_REF}"
               exit 1
