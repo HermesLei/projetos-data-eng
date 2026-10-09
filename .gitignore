@@ -7,3 +7,10 @@ __pycache__/
 
 # Configurações locais do editor
 .vscode/
+# Credenciais e variáveis locais
+.env
+.env.*
+!.env.example
+
+# Dados locais que não devem ser versionados
+data/local/

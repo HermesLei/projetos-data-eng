@@ -1,0 +1,21 @@
+services:
+  postgres-dev:
+    image: postgres:17
+    container_name: projetos-data-eng-postgres-dev
+    restart: unless-stopped
+    env_file:
+      - .env.dev
+    ports:
+      - "127.0.0.1:${POSTGRES_PORT:-5433}:5432"
+    volumes:
+      - postgres_dev_data:/var/lib/postgresql/data
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - pg_isready -U "$$POSTGRES_USER" -d "$$POSTGRES_DB"
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  postgres_dev_data:
