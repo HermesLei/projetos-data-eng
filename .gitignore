@@ -1,0 +1,9 @@
+
+# Ambiente virtual e caches
+.venv/
+venv/
+__pycache__/
+.ruff_cache/
+
+# Configurações locais do editor
+.vscode/
